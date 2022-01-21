@@ -19,7 +19,10 @@ pipeline {
             steps{
                 script{
                     scmVar = checkout(scm)
-                    sh "${scmVar.GIT_PREVIOUS_COMMIT} 이전 commit, ${scmVar.GIT_COMMIT}현재 commit"
+                    def CHANGE = sh(script: "git diff ${scmVar.GIT_PREVIOUS_COMMIT} ${scmVar.GIT_COMMIT} train.py", returnStdout true)
+                    if (CHANGE.length() > 0){
+                        sh "${scmVar.GIT_PREVIOUS_COMMIT} 이전 commit, ${scmVar.GIT_COMMIT}현재 commit"
+                    }
                 }
         }
         }

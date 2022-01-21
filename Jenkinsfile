@@ -10,6 +10,11 @@ pipeline {
 				checkout scm
 			}
 		}
+		stage("Build") {
+			steps {
+				sh 'docker-compose build train-prediction-server'
+			}
+		}
         stage("Check model update"){
             steps{
                 script{
@@ -21,11 +26,6 @@ pipeline {
                 }
         }
         }
-		stage("Build") {
-			steps {
-				sh 'docker-compose build train-prediction-server'
-			}
-		}
 		stage("deploy") {
 			steps {
 				sh "docker-compose up -d"

@@ -19,7 +19,7 @@ pipeline {
             steps{
                 script{
                     scmVar = checkout(scm)
-                    sh "${scmVar}"
+                    sh "${scmVar.GIT_PREVIOUS_COMMIT} 이전 commit, ${scmVar.GIT_COMMIT}현재 commit"
                 }
         }
         }

@@ -3,6 +3,7 @@ import json
 from fastapi import FastAPI, Query 
 from train import prepare_dataset
 from typing import List, Optional
+from train import rmse 
 app = FastAPI()
 
 
@@ -16,5 +17,6 @@ def predicts():
     print(result[0])
     return{
         "checkId":2,
-        "predictions": result[0]
+        "predictions": result[0],
+        'rmse': rmse
     }

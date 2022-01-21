@@ -28,8 +28,9 @@ def prepare_dataset(test_size = 0.2, random_seed=1):
         "test_x" : test_x,
         "test_y" : test_y
     }
-
+rmse = 0
 def train():
+    global rmse 
     logger.info("데이터 셋 불러오는 중입니다...")
     dataset = prepare_dataset()
     train_x = dataset["train_x"]
@@ -40,11 +41,12 @@ def train():
     test_x = StandardScaler().fit(test_x).transform(test_x)
     print(f"train shape: {train_x.shape}\ntest_shape: {test_x.shape}")
 
-    model = RandomForestRegressor(max_depth=10, random_state=42)
+    model = RandomForestRegressor(max_depth=3, random_state=42)
     result = model.fit(train_x, train_y)
 
     predict = result.predict(test_x)
     error = mean_squared_error(test_y, predict)
+    rmse = error
     logger.info(f"테스트 데이터 MSE: {error}")
 
     logger.info("Saving model and artifacts...")

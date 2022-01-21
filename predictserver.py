@@ -15,6 +15,6 @@ def predicts():
     result = model.predict(test_xx.iloc[0, :].values.reshape((1, -1)))
     print(result[0])
     return{
-        "prediction":1,
-        "r": result[0]
+        "checkId":1,
+        "predictions": result[0]
     }

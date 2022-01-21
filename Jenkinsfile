@@ -20,7 +20,7 @@ pipeline {
                 script{
                     def CHANGE = sh(script: "git diff ${GIT_PREVIOUS_SUCCESSFUL_COMMIT} ${GIT_COMMIT} train.py", returnStdout: true)
                     if (CHANGE.length() > 0){
-                        sh "docker exec -i fastapis python train.py"
+                        sh "gogo"
                     }
                 }
         }

@@ -21,7 +21,7 @@ pipeline {
                     scmVar = checkout(scm)
                     def CHANGE = sh(script: "git diff ${scmVar.GIT_PREVIOUS_COMMIT} ${scmVar.GIT_COMMIT} train.py", returnStdout: true)
                     if (CHANGE.length() > 0){
-                        sh "docker exec -i fastapis python train.py"
+                        sh "docker run -it machine-learning-pipeline_train-prediction-server /bin/bash && python train.py"
                     }
                 }
         }

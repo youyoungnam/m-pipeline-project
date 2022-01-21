@@ -45,7 +45,7 @@ def train():
 
     predict = result.predict(test_x)
     error = mean_squared_error(test_y, predict)
-    logger.info(f"테스트 데이터 134MSE: {error}")
+    logger.info(f"테스트 데이터 132334MSE: {error}")
 
     logger.info("Saving model and artifacts...")
     # Path("artifacts").mkdir(exist_ok=True)

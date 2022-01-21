@@ -28,7 +28,7 @@ def prepare_dataset(test_size = 0.2, random_seed=1):
         "test_x" : test_x,
         "test_y" : test_y
     }
-rmse = 0
+
 def train():
     global rmse 
     logger.info("데이터 셋 불러오는 중입니다...")
@@ -61,5 +61,6 @@ def train():
 #     print(model.predict(test_xx.iloc[0, :].values.reshape((1, -1))))
 #     # print(model.predict(test_xx).shape)
 if __name__=="__main__":
+    rmse =0
     logging.basicConfig(level=logging.INFO) 
     train()

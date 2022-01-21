@@ -40,7 +40,7 @@ def train():
     test_x = StandardScaler().fit(test_x).transform(test_x)
     print(f"train shape: {train_x.shape}\ntest_shape: {test_x.shape}")
 
-    model = RandomForestRegressor(max_depth=5)
+    model = RandomForestRegressor(max_depth=3)
     result = model.fit(train_x, train_y)
 
     predict = result.predict(test_x)

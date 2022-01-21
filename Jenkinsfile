@@ -11,15 +11,15 @@ pipeline{
                 sh "docker-compose build train-prediction-server"
             }
         }
-        stage("check model update"){
+        stage("Check modelfile update"){
             steps{
                 script{
-                    def CHANGE = sh(script: "git diff ${GIT_PREVIOUS_SUCCESSFUL_COMMIT} ${GIT_COMMIT} train.py", returnStdout: true)
-                    if(CHANGE.length() > 0){
+                    def CHANGE = sh(script: "git diff ${GIT_PREVIOUS_SUCCESSFUL_COMMIT} ${GIT_COMMIT} main.py", returnStdout: true)
+                    if (CHANGE.length() > 0){
                         sh "docker exec -i fastapis python train.py"
                     }
                 }
-            }
+        }
         }
         stage("deploy"){
             steps {

@@ -51,16 +51,13 @@ def train():
     # Path("artifacts").mkdir(exist_ok=True)
 
     dump(model, "artifacts/model.joblib")
-def predict(model_path = ""):
-    data = prepare_dataset()
-    test_xx = data["test_x"]
-    print(test_xx.iloc[0, :].values.reshape((1, -1)))
-    model = joblib.load(model_path)
-    print(model.predict(test_xx.iloc[0, :].values.reshape((1, -1))))
-    # print(model.predict(test_xx).shape)
+# def predict(model_path = ""):
+#     data = prepare_dataset()
+#     test_xx = data["test_x"]
+#     print(test_xx.iloc[0, :].values.reshape((1, -1)))
+#     model = joblib.load(model_path)
+#     print(model.predict(test_xx.iloc[0, :].values.reshape((1, -1))))
+#     # print(model.predict(test_xx).shape)
 if __name__=="__main__":
     logging.basicConfig(level=logging.INFO) 
-    if "model.joblib" not in os.listdir('./artifacts'):
-        train()
-    else:
-        predict("./artifacts/model.joblib")
+    train()

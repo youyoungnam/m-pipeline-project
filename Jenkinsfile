@@ -15,21 +15,22 @@ pipeline {
 				sh 'docker-compose build train-prediction-server'
 			}
 		}
+
+		stage("deploy") {
+			steps {
+				sh "docker-compose up -d"
+			}
+		}
         stage("Check model update"){
             steps{
                 script{
                     scmVar = checkout(scm)
                     def CHANGE = sh(script: "git diff ${scmVar.GIT_PREVIOUS_COMMIT} ${scmVar.GIT_COMMIT} train.py", returnStdout: true)
                     if (CHANGE.length() > 0){
-                        sh "docker run -it machine-learning-pipeline_train-prediction-server /bin/bash && python train.py"
+                        sh "docker exec -i fastapis python train.py"
                     }
                 }
         }
-        }
-		stage("deploy") {
-			steps {
-				sh "docker-compose up -d"
-			}
-		}
+        }        
 	}
 }

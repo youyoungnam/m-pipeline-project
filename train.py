@@ -40,12 +40,12 @@ def train():
     test_x = StandardScaler().fit(test_x).transform(test_x)
     print(f"train shape: {train_x.shape}\ntest_shape: {test_x.shape}")
 
-    model = RandomForestRegressor(max_depth=2)
+    model = RandomForestRegressor(max_depth=23)
     result = model.fit(train_x, train_y)
 
     predict = result.predict(test_x)
     error = mean_squared_error(test_y, predict)
-    logger.info(f"테스트 데이터 132334MSE: {error}")
+    logger.info(f"테스트 데이터 MSE: {error}")
 
     logger.info("Saving model and artifacts...")
     # Path("artifacts").mkdir(exist_ok=True)

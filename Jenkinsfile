@@ -18,10 +18,8 @@ pipeline {
         stage("Check dockerfile update"){
             steps{
                 script{
-                    def CHANGE = sh(script: "git diff ${GIT_PREVIOUS_SUCCESSFUL_COMMIT} ${GIT_COMMIT} train.py", returnStdout: true)
-                    if (CHANGE.length() > 0){
-                        sh "gogo"
-                    }
+                    scmVar = checkout(scm)
+                    sh "${scmVar}"
                 }
         }
         }

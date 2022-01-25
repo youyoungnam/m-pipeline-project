@@ -3,13 +3,6 @@ pipeline {
 	parameters{
 		choice(name: 'VERSION', choices: ['1.1.0','1.2.0','1.3.0'], description: '')
 		booleanParam(name: 'executeTests', defaultValue: true, description: '')
-		withCredentials(
-			[[
-				$class: 'UsernamePasswordMultiBinding',
-				credentialsId: 'docker-hub',
-				usernameVariable: 'DOCKER_USER_ID',
-				passwordVariable: 'DOCKER_USER_PASSWORD'
-			]])
 	}
 	stages {
 		stage("Checkout") {
@@ -41,9 +34,15 @@ pipeline {
         }
 		stage("Docker push Dockerhub"){
 			steps{
+				 withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                        credentialsId: 'docker-hub', 
+                        usernameVariable: 'DOCKER_USER_ID', 
+                        passwordVariable: 'DOCKER_USER_PASSWORD'
+                        ]]){
 				sh "docker tag train-prediction-server:latest ${DOCKER_USER_ID}/model-images:${BUILD_NUMBER}"
 				sh "docker login -u ${DOCKER_USER_ID} -p ${DOCKER_USER_PASSWORD}"
 				sh "docker push ${DOCKER_USER_ID}/model-images:${BUILD_NUMBER}"
+			}
 			}
 		}        
 	}
